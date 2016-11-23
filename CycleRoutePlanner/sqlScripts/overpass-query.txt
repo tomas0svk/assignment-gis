@@ -1,0 +1,11 @@
+<osm-script output="xml" timeout="2500">
+  <union>
+    <query type="way">
+      <has-kv k="highway"/>
+      <bbox-query e="18.838806152343746" n="48.97571019275402" s="48.62655511310289" w="18.38836669921875"/>
+    </query>
+  </union>
+  <print mode="meta"/>
+  <recurse type="down"/>
+  <print mode="meta" order="quadtile"/>
+</osm-script>

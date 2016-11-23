@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset='utf-8' />
+		<title>Mapa</title>
+		<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+		<script	src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.22.1/mapbox-gl.css' rel='stylesheet' />
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			#map {
+				position: absolute;
+				top: 50px;
+				bottom: 0;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='map'></div>
+		<pre id='info'></pre>
+		
+		<script>
+			var sendToServer;
+		
+			mapboxgl.accessToken = 'pk.eyJ1IjoidG9tYXMwc3ZrIiwiYSI6ImNpczByb2QycjAwMXUyeW83b293N2JuY3UifQ.ZJiBTr1jCQO8nADG-zlBGw';
+
+			var map = new mapboxgl.Map({
+   			container: 'map', // container id
+    		style: 'mapbox://styles/mapbox/streets-v9', //stylesheet location
+    		center: [19.38, 49], // starting position
+    		zoom: 8 // starting zoom
+			});
+
+			map.on('click', function (e) {		    	    
+			    document.getElementById('info').innerHTML =
+			        // e.point is the x, y coordinates of the mousemove event relative
+			        // to the top-left corner of the map
+			        JSON.stringify(e.point) + '<br />' +
+			            // e.lngLat is the longitude, latitude geographical position of the event
+			        JSON.stringify(e.lngLat);
+
+				sendToServer(e.lngLat);
+				
+			});
+		</script>		
+		
+		<div id='buttons'>		
+			<form wicket:id="form">				
+				    <span wicket:id="link"></span>
+			</form>
+		</div>
+	</body>
+</html>
